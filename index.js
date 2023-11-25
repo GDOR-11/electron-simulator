@@ -108,6 +108,8 @@ document.onvisibilitychange = () => [visible, becameVisible] = [!visible, !visib
 function simulation_loop() {
     requestAnimationFrame(simulation_loop);
 
+    console.log(visible, becameVisible);
+    
     if(!visible || becameVisible) {
         frame_count += fps * (Date.now() - last_frame) / 1000;
         last_frame = Date.now();
