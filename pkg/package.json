@@ -1,0 +1,14 @@
+{
+  "name": "verlet-solver",
+  "version": "0.1.0",
+  "files": [
+    "verlet_solver_bg.wasm",
+    "verlet_solver.js",
+    "verlet_solver.d.ts"
+  ],
+  "module": "verlet_solver.js",
+  "types": "verlet_solver.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
