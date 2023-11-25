@@ -21,7 +21,7 @@ const pendulum_ctx = pendulum_canvas.getContext("2d");
 const trail_canvas = document.getElementById("trail-canvas");
 const trail_ctx = trail_canvas.getContext("2d", { willReadFrequently: true });
 
-const amount = Number(parse_query().amount) || 5;
+const amount = Number(parse_query().amount) || 4;
 const iterations = Number(parse_query().iterations) || 1024;
 const fps = Number(parse_query().fps) || Infinity;
 
