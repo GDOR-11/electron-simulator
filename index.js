@@ -103,24 +103,17 @@ let last_frame = start;
 let visible = true;
 let becameVisible = false;
 
-document.onvisibilitychange = () => {
-    [visible, becameVisible] = [!visible, !visible];
-    console.log(visible, becameVisible);
-}
+document.onvisibilitychange = () => [visible, becameVisible] = [!visible, !visible];
 
 function simulation_loop() {
     requestAnimationFrame(simulation_loop);
-
-    console.log(becameVisible);
     
     if(!visible || becameVisible) {
         frame_count += fps * (Date.now() - last_frame) / 1000;
         last_frame = Date.now();
-        if(fps == Infinity) return;
         if(becameVisible) becameVisible = false;
+        if(fps == Infinity) return;
     }
-
-    console.log(becameVisible);
 
     if(1000 * frame_count / (Date.now() - start) > fps) return;
     frame_count++;
