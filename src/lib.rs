@@ -1,45 +1,50 @@
 mod vec2;
-mod point;
-mod joint;
+mod point_charge;
 
+use point_charge::PointCharge;
 use vec2::Vec2;
-use point::Point;
-use joint::Joint;
 
 use wasm_bindgen::prelude::*;
 
+
+// TODO: generalized physical constraint
+// what I probably want to do is code the functions here in rust and JS side gets to choose which
+// one is used. This way its easy to create new ones without much trouble, and it's pretty
+// performant too
+
 #[wasm_bindgen]
 pub struct World {
-    points: Vec<Point>,
-    joints: Vec<Joint>,
-    pub gravity: Vec2
+    charges: Vec<PointCharge>,
+    k: f64
 }
 
 #[wasm_bindgen]
 impl World {
     #[wasm_bindgen(constructor)]
-    pub fn new(gravity: Vec2) -> Self {
-        World { points: vec![], joints: vec![], gravity }
+    pub fn new(k: f64) -> Self {
+        World { k, charges: vec![] }
     }
-    pub fn add_point(&mut self, point: Point) -> *const Point {
-        self.points.push(point);
-        self.points.last().unwrap() as *const Point
+    pub fn add_charge(&mut self, point: PointCharge) -> *const PointCharge {
+        self.charges.push(point);
+        self.charges.last().unwrap() as *const PointCharge
     }
-    pub fn add_joint(&mut self, joint: Joint) -> *const Joint {
-        self.joints.push(joint);
-        self.joints.last().unwrap() as *const Joint
-    }
-    pub unsafe fn get_point(ptr: *const Point) -> Point {
+    pub unsafe fn get_charge(ptr: *const PointCharge) -> PointCharge {
         ptr.read()
     }
     pub fn step(&mut self, dt: f64, substeps: u32) {
         let subdt = dt / substeps as f64;
         for _ in 0..substeps {
-            for point in &mut self.points {
-                point.step(subdt, self.gravity);
+            let mut forces = vec![Vec2::new(0.0, 0.0); self.charges.len()];
+            for i in 0..self.charges.len() {
+                for j in i + 1..self.charges.len() {
+                    let displacement = self.charges[i].pos - self.charges[j].pos;
+                    let force = self.k * self.charges[i].charge * self.charges[j].charge * displacement.length().powi(-2);
+                    forces[i] += force * displacement;
+                    forces[j] -= force * displacement;
+                }
             }
-            for joint in &mut self.joints {
-                joint.apply_constraint();
+            for i in 0..self.charges.len() {
+                self.charges[i].step(subdt, forces[i]);
             }
         }
     }

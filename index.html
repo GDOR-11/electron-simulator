@@ -4,81 +4,26 @@
         <meta charset="utf-8">
         <title>multiple pendulum</title>
         <style>
-            .parameter {
-                color: white;
-                text-align: center;
+            canvas {
+                position: absolute;
+                top: 0px;
+                left: 0px;
             }
-            .title {
-                font-size: 80px;
-                margin: 24px 0px;
+            #pendulum-canvas {
+                position: absolute;
             }
-            .description {
-                margin: 24px 0px;
+            #trail-canvas {
+                background-color: black;
             }
             body {
-                background-color: black;
+                overflow: hidden;
+                margin: 0px;
             }
         </style>
     </head>
     <body>
         <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
-        <br>
-        <div class="parameter">
-            <p class="title">pendulums</p>
-            <p class="description">The amount of pendulums attached one to another.</p>
-            <p class="description">Defaults to 4 and caps at 1023.</p>
-            <input id="amount" type="text"></input>
-            <script>
-                (() => {
-                    let input = document.getElementById("amount");
-                    input.oninput = e => {
-                        input.value = input.value.replace(/\D/g, "");
-                        if(input.value > 1023) input.value = 1023;
-                    };
-                })();
-            </script>
-        </div>
-        <br>
-        <div class="parameter">
-            <p class="title">accuracy</p>
-            <p class="description">How accurate the simulation should be.</p>
-            <p class="description">Values above 10000 probably won't be needed.</p>
-            <input id="iterations" oninput="this.value = this.value.replace(/\D/g, '')"></input>
-            <script>
-                (() => {
-                    let input = document.getElementById("iterations");
-                    input.oninput = e => {
-                        input.value = input.value.replace(/\D/g, "");
-                    };
-                })();
-            </script>
-        </div>
-        <br>
-        <div class="parameter">
-            <p class="title">FPS</p>
-            <p class="description">The fixed FPS the simulation will run.</p>
-            <p class="description">If empty, the simulation will run at maximum possible FPS instead of fixing it at a value.</p>
-            <input id="fps" oninput="this.value = this.value.replace(/\D/g, '')"></input>
-            <script>
-                (() => {
-                    let input = document.getElementById("iterations");
-                    input.oninput = e => {
-                        input.value = input.value.replace(/\D/g, "");
-                    };
-                })();
-            </script>
-        </div>
-        <br>
-        <div style="text-align: center; margin-top: 64px;">
-            <button id="start-button" style="font-size: 24px;">start simulation</button>
-            <script>
-                document.getElementById("start-button").onclick = () => {
-                    let amount = document.getElementById("amount").value;
-                    let iterations = document.getElementById("iterations").value;
-                    let fps = document.getElementById("fps").value;
-                    location.href = `simulation.html?amount=${amount}&iterations=${iterations}&fps=${fps}`;
-                };
-            </script>
-        </div>
+        <canvas id="canvas"></canvas>
+        <script type="module" src="./index.js"></script>
     </body>
 </html>

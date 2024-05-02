@@ -1,4 +1,3 @@
-import "./canvas-resizer.js";
 import parse_query from "./parse-query.js";
 
 import init, {World, Vec2, Point, Joint} from "./pkg/verlet_solver.js";
@@ -15,17 +14,12 @@ let width, height;
 })();
 
 /** @type {HTMLCanvasElement} */
-const pendulum_canvas = document.getElementById("pendulum-canvas");
-const pendulum_ctx = pendulum_canvas.getContext("2d");
-/** @type{HTMLCanvasElement} */
-const trail_canvas = document.getElementById("trail-canvas");
-const trail_ctx = trail_canvas.getContext("2d", { willReadFrequently: true });
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-const amount = Number(parse_query().amount) || 4;
-const iterations = Number(parse_query().iterations) || 1024;
 const fps = Number(parse_query().fps) || Infinity;
 
-const world = new World(new Vec2(0, 500));
+const world = new World();
 
 /**
  * array of pointers to the points
