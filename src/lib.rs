@@ -17,7 +17,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub struct World {
     charges: Vec<PointCharge>,
-    constraint: Constraint
+    constraint: Constraint,
     k: f64
 }
 
@@ -48,7 +48,7 @@ impl World {
             }
             for i in 0..self.charges.len() {
                 self.charges[i].step(subdt, forces[i]);
-                self.constraint.apply(&self.charges[i].pos);
+                self.constraint.apply(&mut self.charges[i].pos);
             }
         }
     }
