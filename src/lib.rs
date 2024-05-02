@@ -1,8 +1,10 @@
 mod vec2;
 mod point_charge;
+mod constraint;
 
 use point_charge::PointCharge;
 use vec2::Vec2;
+use constraint::Constraint;
 
 use wasm_bindgen::prelude::*;
 
@@ -15,14 +17,15 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub struct World {
     charges: Vec<PointCharge>,
+    constraint: Constraint
     k: f64
 }
 
 #[wasm_bindgen]
 impl World {
     #[wasm_bindgen(constructor)]
-    pub fn new(k: f64) -> Self {
-        World { k, charges: vec![] }
+    pub fn new(k: f64, constraint: Constraint) -> Self {
+        World { charges: vec![], constraint, k }
     }
     pub fn add_charge(&mut self, point: PointCharge) -> *const PointCharge {
         self.charges.push(point);
@@ -45,6 +48,7 @@ impl World {
             }
             for i in 0..self.charges.len() {
                 self.charges[i].step(subdt, forces[i]);
+                self.constraint.apply(&self.charges[i].pos);
             }
         }
     }
