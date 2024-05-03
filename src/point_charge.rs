@@ -1,4 +1,4 @@
-use super::vec2::Vec2;
+use super::vec3::Vec3;
 
 use wasm_bindgen::prelude::*;
 
@@ -6,18 +6,18 @@ use wasm_bindgen::prelude::*;
 #[derive(Clone, Copy)]
 pub struct PointCharge {
     pub locked: bool,
-    pub pos: Vec2,
-    pub last_pos: Vec2,
+    pub pos: Vec3,
+    pub last_pos: Vec3,
     pub charge: f64
 }
 
 #[wasm_bindgen]
 impl PointCharge {
     #[wasm_bindgen(constructor)]
-    pub fn new(locked: bool, pos: Vec2, last_pos: Vec2, charge: f64) -> PointCharge {
+    pub fn new(locked: bool, pos: Vec3, last_pos: Vec3, charge: f64) -> PointCharge {
         PointCharge { locked, pos, last_pos, charge }
     }
-    pub fn step(&mut self, dt: f64, force: Vec2) {
+    pub fn step(&mut self, dt: f64, force: Vec3) {
         if self.locked { return; }
 
         let pos = self.pos;

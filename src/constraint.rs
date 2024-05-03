@@ -1,4 +1,4 @@
-use crate::Vec2;
+use crate::Vec3;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -25,10 +25,10 @@ impl Constraint {
     pub fn get_data(&self, index: usize) -> f64 {
         self.data[index]
     }
-    pub fn apply(&self, point: &mut Vec2) {
+    pub fn apply(&self, point: &mut Vec3) {
         match self.shape {
             ConstraintShape::Circle => {
-                let (center, radius) = ( Vec2::new(self.data[0], self.data[1]), self.data[2] );
+                let (center, radius) = ( Vec3::new(self.data[0], self.data[1]), self.data[2] );
                 let offset = *point - center;
                 let distance = offset.length();
                 if distance > radius {

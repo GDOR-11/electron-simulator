@@ -1,9 +1,9 @@
-mod vec2;
+mod vec3;
 mod point_charge;
 mod constraint;
 
 use point_charge::PointCharge;
-use vec2::Vec2;
+use vec3::Vec3;
 use constraint::Constraint;
 
 use wasm_bindgen::prelude::*;
@@ -34,8 +34,8 @@ impl World {
     pub unsafe fn get_charge(&self, index: usize) -> PointCharge {
         self.charges[index]
     }
-    pub fn get_electric_field(&self, point: Vec2) -> Vec2 {
-        let mut electric_field = Vec2::new(0.0, 0.0);
+    pub fn get_electric_field(&self, point: Vec3) -> Vec3 {
+        let mut electric_field = Vec3::new(0.0, 0.0);
         for charge in &self.charges {
             let displacement = charge.pos - point;
             electric_field += displacement * self.k * charge.charge * displacement.sq_length().powf(-1.5);
@@ -45,7 +45,7 @@ impl World {
     pub fn step(&mut self, dt: f64, substeps: u32) {
         let subdt = dt / substeps as f64;
         for _ in 0..substeps {
-            let mut forces = vec![Vec2::new(0.0, 0.0); self.charges.len()];
+            let mut forces = vec![Vec3::new(0.0, 0.0); self.charges.len()];
             for i in 0..self.charges.len() {
                 for j in i + 1..self.charges.len() {
                     let displacement = self.charges[i].pos - self.charges[j].pos;
