@@ -41,6 +41,12 @@ window.addEventListener("mousedown", event => {
     charges.push(world.add_charge(new PointCharge(false, new Vec2(event.x, event.y), new Vec2(event.x, event.y), window.idk)));
 });
 
+for(let a = 0;a < 2 * Math.PI;a += Math.PI / 32) {
+    let x = width / 2 + height / 2 * Math.cos(a);
+    let y = height / 2 + height / 2 * Math.sin(a);
+    charges.push(world.add_charge(new PointCharge(false, new Vec2(x, y), new Vec2(x, y), window.idk)));
+}
+
 
 function render_constraint() {
     if (constraint.shape === ConstraintShape.Circle) {
