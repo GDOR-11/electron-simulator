@@ -15,6 +15,10 @@ export class Constraint {
 */
   constructor(shape: ConstraintShape, data: Float64Array);
 /**
+* @returns {Constraint}
+*/
+  clone(): Constraint;
+/**
 * @param {number} index
 * @returns {number}
 */
@@ -149,6 +153,7 @@ export interface InitOutput {
   readonly __wbg_get_constraint_shape: (a: number) => number;
   readonly __wbg_set_constraint_shape: (a: number, b: number) => void;
   readonly constraint_new: (a: number, b: number, c: number) => number;
+  readonly constraint_clone: (a: number) => number;
   readonly constraint_get_data: (a: number, b: number) => number;
   readonly constraint_apply: (a: number, b: number) => void;
   readonly __wbindgen_malloc: (a: number, b: number) => number;

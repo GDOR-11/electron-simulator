@@ -53,6 +53,14 @@ const ConstraintFinalization = (typeof FinalizationRegistry === 'undefined')
 */
 export class Constraint {
 
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(Constraint.prototype);
+        obj.__wbg_ptr = ptr;
+        ConstraintFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
@@ -87,6 +95,13 @@ export class Constraint {
         const ret = wasm.constraint_new(shape, ptr0, len0);
         this.__wbg_ptr = ret >>> 0;
         return this;
+    }
+    /**
+    * @returns {Constraint}
+    */
+    clone() {
+        const ret = wasm.constraint_clone(this.__wbg_ptr);
+        return Constraint.__wrap(ret);
     }
     /**
     * @param {number} index

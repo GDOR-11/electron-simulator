@@ -24,8 +24,7 @@ const constraint = new Constraint(
     ConstraintShape.Circle,
     new Float64Array([width / 2, height / 2, Math.min(width, height) / 2])
 );
-console.log(constraint.shape);
-const world = new World(9e9, constraint);
+const world = new World(9e9, constraint.clone());
 console.log(constraint.shape);
 
 /**

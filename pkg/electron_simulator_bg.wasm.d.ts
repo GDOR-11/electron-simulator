@@ -31,6 +31,7 @@ export function __wbg_constraint_free(a: number): void;
 export function __wbg_get_constraint_shape(a: number): number;
 export function __wbg_set_constraint_shape(a: number, b: number): void;
 export function constraint_new(a: number, b: number, c: number): number;
+export function constraint_clone(a: number): number;
 export function constraint_get_data(a: number, b: number): number;
 export function constraint_apply(a: number, b: number): void;
 export function __wbindgen_malloc(a: number, b: number): number;

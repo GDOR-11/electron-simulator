@@ -19,6 +19,9 @@ impl Constraint {
     pub fn new(shape: ConstraintShape, data: &[f64]) -> Self {
         Self { shape, data: data.to_owned() }
     }
+    pub fn clone(&self) -> Self {
+        Self { shape: self.shape, data: self.data.clone() }
+    }
     pub fn get_data(&self, index: usize) -> f64 {
         self.data[index]
     }
