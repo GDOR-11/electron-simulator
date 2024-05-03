@@ -31,7 +31,7 @@ const constraint = new Constraint(
 const world = new World(9e9, constraint.clone());
 
 /**
- * array of pointers to the points
+ * array of indexes of the array in rust
  * @type {number[]}
  */
 let charges = [];
@@ -51,8 +51,8 @@ function render_constraint() {
     }
 }
 function render_charges() {
-    for (let ptr of charges) {
-        let charge = World.get_charge(ptr);
+    for (let idx of charges) {
+        let charge = world.get_charge(idx);
         ctx.fillStyle = charge.charge > 0 ? "red" : "yellow";
         ctx.beginPath();
         ctx.arc(charge.pos.x, charge.pos.y, 10, 0, 2 * Math.PI);
