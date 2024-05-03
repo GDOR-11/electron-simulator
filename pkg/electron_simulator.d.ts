@@ -3,7 +3,7 @@
 /**
 */
 export enum ConstraintShape {
-  Circle = 0,
+  Sphere = 0,
 }
 /**
 */
@@ -24,9 +24,9 @@ export class Constraint {
 */
   get_data(index: number): number;
 /**
-* @param {Vec2} point
+* @param {Vec3} point
 */
-  apply(point: Vec2): void;
+  apply(point: Vec3): void;
 /**
 */
   shape: ConstraintShape;
@@ -37,42 +37,43 @@ export class PointCharge {
   free(): void;
 /**
 * @param {boolean} locked
-* @param {Vec2} pos
-* @param {Vec2} last_pos
+* @param {Vec3} pos
+* @param {Vec3} last_pos
 * @param {number} charge
 */
-  constructor(locked: boolean, pos: Vec2, last_pos: Vec2, charge: number);
+  constructor(locked: boolean, pos: Vec3, last_pos: Vec3, charge: number);
 /**
 * @param {number} dt
-* @param {Vec2} force
+* @param {Vec3} force
 */
-  step(dt: number, force: Vec2): void;
+  step(dt: number, force: Vec3): void;
 /**
 */
   charge: number;
 /**
 */
-  last_pos: Vec2;
+  last_pos: Vec3;
 /**
 */
   locked: boolean;
 /**
 */
-  pos: Vec2;
+  pos: Vec3;
 }
 /**
 */
-export class Vec2 {
+export class Vec3 {
   free(): void;
 /**
 * @param {number} x
 * @param {number} y
+* @param {number} z
 */
-  constructor(x: number, y: number);
+  constructor(x: number, y: number, z: number);
 /**
-* @returns {Vec2}
+* @returns {Vec3}
 */
-  normalized(): Vec2;
+  normalized(): Vec3;
 /**
 * @returns {number}
 */
@@ -87,6 +88,9 @@ export class Vec2 {
 /**
 */
   y: number;
+/**
+*/
+  z: number;
 }
 /**
 */
@@ -108,10 +112,10 @@ export class World {
 */
   get_charge(index: number): PointCharge;
 /**
-* @param {Vec2} point
-* @returns {Vec2}
+* @param {Vec3} point
+* @returns {Vec3}
 */
-  get_electric_field(point: Vec2): Vec2;
+  get_electric_field(point: Vec3): Vec3;
 /**
 * @param {number} dt
 * @param {number} substeps
@@ -123,15 +127,17 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly __wbg_vec2_free: (a: number) => void;
-  readonly __wbg_get_vec2_x: (a: number) => number;
-  readonly __wbg_set_vec2_x: (a: number, b: number) => void;
-  readonly __wbg_get_vec2_y: (a: number) => number;
-  readonly __wbg_set_vec2_y: (a: number, b: number) => void;
-  readonly vec2_new: (a: number, b: number) => number;
-  readonly vec2_normalized: (a: number) => number;
-  readonly vec2_sq_length: (a: number) => number;
-  readonly vec2_length: (a: number) => number;
+  readonly __wbg_vec3_free: (a: number) => void;
+  readonly __wbg_get_vec3_x: (a: number) => number;
+  readonly __wbg_set_vec3_x: (a: number, b: number) => void;
+  readonly __wbg_get_vec3_y: (a: number) => number;
+  readonly __wbg_set_vec3_y: (a: number, b: number) => void;
+  readonly __wbg_get_vec3_z: (a: number) => number;
+  readonly __wbg_set_vec3_z: (a: number, b: number) => void;
+  readonly vec3_new: (a: number, b: number, c: number) => number;
+  readonly vec3_normalized: (a: number) => number;
+  readonly vec3_sq_length: (a: number) => number;
+  readonly vec3_length: (a: number) => number;
   readonly __wbg_pointcharge_free: (a: number) => void;
   readonly __wbg_get_pointcharge_locked: (a: number) => number;
   readonly __wbg_set_pointcharge_locked: (a: number, b: number) => void;

@@ -4,7 +4,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 #[derive(Clone, Copy)]
 pub enum ConstraintShape {
-    Circle
+    Sphere
 }
 
 #[wasm_bindgen]
@@ -27,7 +27,7 @@ impl Constraint {
     }
     pub fn apply(&self, point: &mut Vec3) {
         match self.shape {
-            ConstraintShape::Circle => {
+            ConstraintShape::Sphere => {
                 let (center, radius) = ( Vec3::new(self.data[0], self.data[1], self.data[2]), self.data[3] );
                 let offset = *point - center;
                 let distance = offset.length();

@@ -44,7 +44,7 @@ function passArrayF64ToWasm0(arg, malloc) {
 }
 /**
 */
-export const ConstraintShape = Object.freeze({ Circle:0,"0":"Circle", });
+export const ConstraintShape = Object.freeze({ Sphere:0,"0":"Sphere", });
 
 const ConstraintFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -112,10 +112,10 @@ export class Constraint {
         return ret;
     }
     /**
-    * @param {Vec2} point
+    * @param {Vec3} point
     */
     apply(point) {
-        _assertClass(point, Vec2);
+        _assertClass(point, Vec3);
         wasm.constraint_apply(this.__wbg_ptr, point.__wbg_ptr);
     }
 }
@@ -160,32 +160,32 @@ export class PointCharge {
         wasm.__wbg_set_pointcharge_locked(this.__wbg_ptr, arg0);
     }
     /**
-    * @returns {Vec2}
+    * @returns {Vec3}
     */
     get pos() {
         const ret = wasm.__wbg_get_pointcharge_pos(this.__wbg_ptr);
-        return Vec2.__wrap(ret);
+        return Vec3.__wrap(ret);
     }
     /**
-    * @param {Vec2} arg0
+    * @param {Vec3} arg0
     */
     set pos(arg0) {
-        _assertClass(arg0, Vec2);
+        _assertClass(arg0, Vec3);
         var ptr0 = arg0.__destroy_into_raw();
         wasm.__wbg_set_pointcharge_pos(this.__wbg_ptr, ptr0);
     }
     /**
-    * @returns {Vec2}
+    * @returns {Vec3}
     */
     get last_pos() {
         const ret = wasm.__wbg_get_pointcharge_last_pos(this.__wbg_ptr);
-        return Vec2.__wrap(ret);
+        return Vec3.__wrap(ret);
     }
     /**
-    * @param {Vec2} arg0
+    * @param {Vec3} arg0
     */
     set last_pos(arg0) {
-        _assertClass(arg0, Vec2);
+        _assertClass(arg0, Vec3);
         var ptr0 = arg0.__destroy_into_raw();
         wasm.__wbg_set_pointcharge_last_pos(this.__wbg_ptr, ptr0);
     }
@@ -204,14 +204,14 @@ export class PointCharge {
     }
     /**
     * @param {boolean} locked
-    * @param {Vec2} pos
-    * @param {Vec2} last_pos
+    * @param {Vec3} pos
+    * @param {Vec3} last_pos
     * @param {number} charge
     */
     constructor(locked, pos, last_pos, charge) {
-        _assertClass(pos, Vec2);
+        _assertClass(pos, Vec3);
         var ptr0 = pos.__destroy_into_raw();
-        _assertClass(last_pos, Vec2);
+        _assertClass(last_pos, Vec3);
         var ptr1 = last_pos.__destroy_into_raw();
         const ret = wasm.pointcharge_new(locked, ptr0, ptr1, charge);
         this.__wbg_ptr = ret >>> 0;
@@ -219,95 +219,109 @@ export class PointCharge {
     }
     /**
     * @param {number} dt
-    * @param {Vec2} force
+    * @param {Vec3} force
     */
     step(dt, force) {
-        _assertClass(force, Vec2);
+        _assertClass(force, Vec3);
         var ptr0 = force.__destroy_into_raw();
         wasm.pointcharge_step(this.__wbg_ptr, dt, ptr0);
     }
 }
 
-const Vec2Finalization = (typeof FinalizationRegistry === 'undefined')
+const Vec3Finalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_vec2_free(ptr >>> 0));
+    : new FinalizationRegistry(ptr => wasm.__wbg_vec3_free(ptr >>> 0));
 /**
 */
-export class Vec2 {
+export class Vec3 {
 
     static __wrap(ptr) {
         ptr = ptr >>> 0;
-        const obj = Object.create(Vec2.prototype);
+        const obj = Object.create(Vec3.prototype);
         obj.__wbg_ptr = ptr;
-        Vec2Finalization.register(obj, obj.__wbg_ptr, obj);
+        Vec3Finalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
 
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        Vec2Finalization.unregister(this);
+        Vec3Finalization.unregister(this);
         return ptr;
     }
 
     free() {
         const ptr = this.__destroy_into_raw();
-        wasm.__wbg_vec2_free(ptr);
+        wasm.__wbg_vec3_free(ptr);
     }
     /**
     * @returns {number}
     */
     get x() {
-        const ret = wasm.__wbg_get_vec2_x(this.__wbg_ptr);
+        const ret = wasm.__wbg_get_vec3_x(this.__wbg_ptr);
         return ret;
     }
     /**
     * @param {number} arg0
     */
     set x(arg0) {
-        wasm.__wbg_set_vec2_x(this.__wbg_ptr, arg0);
+        wasm.__wbg_set_vec3_x(this.__wbg_ptr, arg0);
     }
     /**
     * @returns {number}
     */
     get y() {
-        const ret = wasm.__wbg_get_vec2_y(this.__wbg_ptr);
+        const ret = wasm.__wbg_get_vec3_y(this.__wbg_ptr);
         return ret;
     }
     /**
     * @param {number} arg0
     */
     set y(arg0) {
-        wasm.__wbg_set_vec2_y(this.__wbg_ptr, arg0);
+        wasm.__wbg_set_vec3_y(this.__wbg_ptr, arg0);
+    }
+    /**
+    * @returns {number}
+    */
+    get z() {
+        const ret = wasm.__wbg_get_vec3_z(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+    * @param {number} arg0
+    */
+    set z(arg0) {
+        wasm.__wbg_set_vec3_z(this.__wbg_ptr, arg0);
     }
     /**
     * @param {number} x
     * @param {number} y
+    * @param {number} z
     */
-    constructor(x, y) {
-        const ret = wasm.vec2_new(x, y);
+    constructor(x, y, z) {
+        const ret = wasm.vec3_new(x, y, z);
         this.__wbg_ptr = ret >>> 0;
         return this;
     }
     /**
-    * @returns {Vec2}
+    * @returns {Vec3}
     */
     normalized() {
-        const ret = wasm.vec2_normalized(this.__wbg_ptr);
-        return Vec2.__wrap(ret);
+        const ret = wasm.vec3_normalized(this.__wbg_ptr);
+        return Vec3.__wrap(ret);
     }
     /**
     * @returns {number}
     */
     sq_length() {
-        const ret = wasm.vec2_sq_length(this.__wbg_ptr);
+        const ret = wasm.vec3_sq_length(this.__wbg_ptr);
         return ret;
     }
     /**
     * @returns {number}
     */
     length() {
-        const ret = wasm.vec2_length(this.__wbg_ptr);
+        const ret = wasm.vec3_length(this.__wbg_ptr);
         return ret;
     }
 }
@@ -360,14 +374,14 @@ export class World {
         return PointCharge.__wrap(ret);
     }
     /**
-    * @param {Vec2} point
-    * @returns {Vec2}
+    * @param {Vec3} point
+    * @returns {Vec3}
     */
     get_electric_field(point) {
-        _assertClass(point, Vec2);
+        _assertClass(point, Vec3);
         var ptr0 = point.__destroy_into_raw();
         const ret = wasm.world_get_electric_field(this.__wbg_ptr, ptr0);
-        return Vec2.__wrap(ret);
+        return Vec3.__wrap(ret);
     }
     /**
     * @param {number} dt

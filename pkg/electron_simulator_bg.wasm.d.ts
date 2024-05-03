@@ -1,15 +1,17 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
-export function __wbg_vec2_free(a: number): void;
-export function __wbg_get_vec2_x(a: number): number;
-export function __wbg_set_vec2_x(a: number, b: number): void;
-export function __wbg_get_vec2_y(a: number): number;
-export function __wbg_set_vec2_y(a: number, b: number): void;
-export function vec2_new(a: number, b: number): number;
-export function vec2_normalized(a: number): number;
-export function vec2_sq_length(a: number): number;
-export function vec2_length(a: number): number;
+export function __wbg_vec3_free(a: number): void;
+export function __wbg_get_vec3_x(a: number): number;
+export function __wbg_set_vec3_x(a: number, b: number): void;
+export function __wbg_get_vec3_y(a: number): number;
+export function __wbg_set_vec3_y(a: number, b: number): void;
+export function __wbg_get_vec3_z(a: number): number;
+export function __wbg_set_vec3_z(a: number, b: number): void;
+export function vec3_new(a: number, b: number, c: number): number;
+export function vec3_normalized(a: number): number;
+export function vec3_sq_length(a: number): number;
+export function vec3_length(a: number): number;
 export function __wbg_pointcharge_free(a: number): void;
 export function __wbg_get_pointcharge_locked(a: number): number;
 export function __wbg_set_pointcharge_locked(a: number, b: number): void;
