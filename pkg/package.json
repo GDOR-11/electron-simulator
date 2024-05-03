@@ -1,13 +1,13 @@
 {
-  "name": "verlet-solver",
+  "name": "electron-simulator",
   "version": "0.1.0",
   "files": [
-    "verlet_solver_bg.wasm",
-    "verlet_solver.js",
-    "verlet_solver.d.ts"
+    "electron_simulator_bg.wasm",
+    "electron_simulator.js",
+    "electron_simulator.d.ts"
   ],
-  "module": "verlet_solver.js",
-  "types": "verlet_solver.d.ts",
+  "module": "electron_simulator.js",
+  "types": "electron_simulator.d.ts",
   "sideEffects": [
     "./snippets/*"
   ]

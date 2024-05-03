@@ -15,8 +15,17 @@ impl Vec2 {
     pub fn new(x: f64, y: f64) -> Self {
         Self { x, y }
     }
+    #[inline(always)]
+    pub fn normalized(&self) -> Self {
+        *self * self.sq_length().powf(-0.5)
+    }
+    #[inline(always)]
+    pub fn sq_length(&self) -> f64 {
+        self.x * self.x + self.y * self.y
+    }
+    #[inline(always)]
     pub fn length(&self) -> f64 {
-        (self.x * self.x + self.y * self.y).sqrt()
+        self.sq_length().sqrt()
     }
 }
 

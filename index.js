@@ -1,6 +1,6 @@
 import parse_query from "./parse-query.js";
 
-import init, {World, Vec2, Point, Joint} from "./pkg/verlet_solver.js";
+import init, {World, Constraint, ConstraintShape, Vec2, PointCharge} from "./pkg/electron_simulator.js";
 await init();
 
 let width, height;
@@ -19,25 +19,19 @@ const ctx = canvas.getContext("2d");
 
 const fps = Number(parse_query().fps) || Infinity;
 
-const world = new World();
+const constraint = new Constraint(
+    ConstraintShape.Circle,
+    new Float64Array([ width / 2, height / 2, Math.min(width, height) / 2 ])
+);
+const world = new World(9e9, constraint);
 
 /**
  * array of pointers to the points
  * @type {number[]}
  */
-let points = [];
-
-function initialize_pendulum(amount) {
-    amount++; // points = pendulums + 1
-    let length = Math.min(width / 2, height * 0.9);
-    for(let i = 0;i < amount;i++) {
-        let position = new Vec2(width / 2 + length * i / (amount - 1), height * 0.1);
-        points[i] = world.add_point(new Point(i == 0, position, new Vec2(position.x, position.y)));
-    }
-    for(let i = 0;i < points.length - 1;i++) {
-        world.add_joint(new Joint(points[i], points[i + 1]));
-    }
-}
+let charges = [];
+charges.push(world.add_charge(new PointCharge(false, new Vec2(0.0, 0.0), new Vec2(0.0, 0.0))));
+console.log(World.get_charge(charges[0]));
 
 initialize_pendulum(amount);
 

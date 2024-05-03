@@ -13,18 +13,14 @@ pub struct Constraint {
     data: Vec<f64> 
 }
 
-// its a pain in the ass to make the data visible to the JS side, so I did this to make it visible
-// only to rust
-impl Constraint {
-    pub fn get_data(&self) -> &[f64] {
-        self.data.as_slice()
-    }
-}
-
 #[wasm_bindgen]
 impl Constraint {
+    #[wasm_bindgen(constructor)]
     pub fn new(shape: ConstraintShape, data: &[f64]) -> Self {
         Self { shape, data: data.to_owned() }
+    }
+    pub fn get_data(&self, index: usize) -> f64 {
+        self.data[index]
     }
     pub fn apply(&self, point: &mut Vec2) {
         match self.shape {

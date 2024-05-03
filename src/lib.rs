@@ -34,6 +34,14 @@ impl World {
     pub unsafe fn get_charge(ptr: *const PointCharge) -> PointCharge {
         ptr.read()
     }
+    pub fn get_electric_field(&self, point: Vec2) -> Vec2 {
+        let mut electric_field = Vec2::new(0.0, 0.0);
+        for charge in &self.charges {
+            let displacement = charge.pos - point;
+            electric_field += displacement * self.k * charge.charge * displacement.sq_length().powf(-1.5);
+        }
+        electric_field
+    }
     pub fn step(&mut self, dt: f64, substeps: u32) {
         let subdt = dt / substeps as f64;
         for _ in 0..substeps {
@@ -41,9 +49,9 @@ impl World {
             for i in 0..self.charges.len() {
                 for j in i + 1..self.charges.len() {
                     let displacement = self.charges[i].pos - self.charges[j].pos;
-                    let force = self.k * self.charges[i].charge * self.charges[j].charge * displacement.length().powi(-2);
-                    forces[i] += force * displacement;
-                    forces[j] -= force * displacement;
+                    let force = displacement * (self.k * self.charges[i].charge * self.charges[j].charge * displacement.sq_length().powf(-1.5));
+                    forces[i] += force;
+                    forces[j] -= force;
                 }
             }
             for i in 0..self.charges.len() {
