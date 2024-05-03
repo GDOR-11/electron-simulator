@@ -35,8 +35,10 @@ const world = new World(9e9, constraint.clone());
  * @type {number[]}
  */
 let charges = [];
-charges.push(world.add_charge(new PointCharge(false, new Vec2(0.0, 0.0), new Vec2(0.0, 0.0), 1)));
-charges.push(world.add_charge(new PointCharge(false, new Vec2(1.0, 0.0), new Vec2(1.0, 0.0), 1)));
+
+window.addEventListener("mousedown", event => {
+    charges.push(world.add_charge(new PointCharge(false, new Vec2(event.x, event.y), new Vec2(event.x, event.y), 1)));
+});
 
 
 function render_constraint() {
