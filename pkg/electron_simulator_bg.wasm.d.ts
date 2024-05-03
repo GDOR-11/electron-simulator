@@ -24,7 +24,7 @@ export function pointcharge_step(a: number, b: number, c: number): void;
 export function __wbg_world_free(a: number): void;
 export function world_new(a: number, b: number): number;
 export function world_add_charge(a: number, b: number): number;
-export function world_get_charge(a: number): number;
+export function world_get_charge(a: number, b: number): number;
 export function world_get_electric_field(a: number, b: number): number;
 export function world_step(a: number, b: number, c: number): void;
 export function __wbg_constraint_free(a: number): void;

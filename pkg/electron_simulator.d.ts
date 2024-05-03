@@ -103,10 +103,10 @@ export class World {
 */
   add_charge(point: PointCharge): number;
 /**
-* @param {number} ptr
+* @param {number} index
 * @returns {PointCharge}
 */
-  static get_charge(ptr: number): PointCharge;
+  get_charge(index: number): PointCharge;
 /**
 * @param {Vec2} point
 * @returns {Vec2}
@@ -146,7 +146,7 @@ export interface InitOutput {
   readonly __wbg_world_free: (a: number) => void;
   readonly world_new: (a: number, b: number) => number;
   readonly world_add_charge: (a: number, b: number) => number;
-  readonly world_get_charge: (a: number) => number;
+  readonly world_get_charge: (a: number, b: number) => number;
   readonly world_get_electric_field: (a: number, b: number) => number;
   readonly world_step: (a: number, b: number, c: number) => void;
   readonly __wbg_constraint_free: (a: number) => void;

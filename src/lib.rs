@@ -27,12 +27,12 @@ impl World {
     pub fn new(k: f64, constraint: Constraint) -> Self {
         World { charges: vec![], constraint, k }
     }
-    pub fn add_charge(&mut self, point: PointCharge) -> *const PointCharge {
+    pub fn add_charge(&mut self, point: PointCharge) -> usize {
         self.charges.push(point);
-        self.charges.last().unwrap() as *const PointCharge
+        self.charges.len() - 1
     }
-    pub unsafe fn get_charge(ptr: *const PointCharge) -> PointCharge {
-        ptr.read()
+    pub unsafe fn get_charge(&self, index: usize) -> PointCharge {
+        self.charges[index]
     }
     pub fn get_electric_field(&self, point: Vec2) -> Vec2 {
         let mut electric_field = Vec2::new(0.0, 0.0);

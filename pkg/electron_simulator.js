@@ -352,11 +352,11 @@ export class World {
         return ret >>> 0;
     }
     /**
-    * @param {number} ptr
+    * @param {number} index
     * @returns {PointCharge}
     */
-    static get_charge(ptr) {
-        const ret = wasm.world_get_charge(ptr);
+    get_charge(index) {
+        const ret = wasm.world_get_charge(this.__wbg_ptr, index);
         return PointCharge.__wrap(ret);
     }
     /**
