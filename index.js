@@ -3,19 +3,23 @@ import parse_query from "./parse-query.js";
 import init, { World, Constraint, ConstraintShape, Vec2, PointCharge } from "./pkg/electron_simulator.js";
 await init();
 
+
+/** @type {HTMLCanvasElement} */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
 let width, height;
 (() => {
     function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
     }
     window.addEventListener("resize", resize);
     resize();
 })();
 
-/** @type {HTMLCanvasElement} */
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
 
 const iterations = Number(parse_query().iterations) || 1;
 const fps = Number(parse_query().fps) || Infinity;
@@ -25,7 +29,6 @@ const constraint = new Constraint(
     new Float64Array([width / 2, height / 2, Math.min(width, height) / 2])
 );
 const world = new World(9e9, constraint.clone());
-console.log(constraint.shape);
 
 /**
  * array of pointers to the points
@@ -79,6 +82,7 @@ function simulation_loop() {
     let dt = fps == Infinity ? (Date.now() - last_frame) / 1000 : 1 / fps;
     last_frame = Date.now();
 
+    ctx.clearRect(0, 0, width, height);
     render_constraint();
     render_charges();
     world.step(dt, iterations);
