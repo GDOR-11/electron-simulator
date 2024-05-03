@@ -26,6 +26,7 @@ const constraint = new Constraint(
 );
 console.log(constraint.shape);
 const world = new World(9e9, constraint);
+console.log(constraint.shape);
 
 /**
  * array of pointers to the points
