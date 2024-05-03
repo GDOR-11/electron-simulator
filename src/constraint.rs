@@ -28,7 +28,7 @@ impl Constraint {
     pub fn apply(&self, point: &mut Vec3) {
         match self.shape {
             ConstraintShape::Circle => {
-                let (center, radius) = ( Vec3::new(self.data[0], self.data[1]), self.data[2] );
+                let (center, radius) = ( Vec3::new(self.data[0], self.data[1], self.data[2]), self.data[3] );
                 let offset = *point - center;
                 let distance = offset.length();
                 if distance > radius {
