@@ -36,7 +36,7 @@ const world = new World(9e9, constraint.clone());
  */
 let charges = [];
 
-window.idk = 1e-2;
+window.idk = 1e-4;
 window.addEventListener("mousedown", event => {
     charges.push(world.add_charge(new PointCharge(false, new Vec2(event.x, event.y), new Vec2(event.x, event.y), window.idk)));
 });
