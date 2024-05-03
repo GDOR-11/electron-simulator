@@ -3,6 +3,7 @@ use super::vec2::Vec2;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+#[derive(Clone, Copy)]
 pub struct PointCharge {
     pub locked: bool,
     pub pos: Vec2,
