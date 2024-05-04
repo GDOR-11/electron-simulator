@@ -4,6 +4,9 @@ import init, { World, Constraint, ConstraintShape, Vec3, PointCharge } from "ele
 await init();
 
 
+const FOV = Number(prompt("FOV?"));
+
+
 const canvas = document.getElementsByTagName("canvas")[0];
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
@@ -57,7 +60,7 @@ function render_charges() {
         let charge = world.get_charge(idx);
         ctx.fillStyle = charge.charge > 0 ? "red" : "yellow";
         ctx.beginPath();
-        ctx.arc(charge.pos.x, charge.pos.y, 1000 / (charge.pos.z + 1000), 0, 2 * Math.PI);
+        ctx.arc(charge.pos.x, charge.pos.y, FOV / (charge.pos.z + FOV), 0, 2 * Math.PI);
         ctx.fill();
     }
 }
