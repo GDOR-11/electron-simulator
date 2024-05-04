@@ -34,10 +34,10 @@ const e = 0.01;
 let charges: number[] = [];
 
 window.addEventListener("mousedown", event => {
-    charges.push(world.add_charge(new PointCharge(false, new Vec3(event.x, event.y, 0), new Vec3(event.x, event.y, 0), -e)));
+    charges.push(world.add_charge(new PointCharge(false, new Vec3(event.x, event.y, 0.1), new Vec3(event.x, event.y, 0.1), -e)));
 });
 
-for(let a = 0;a < 1.99999 * Math.PI;a += Math.PI / 32) {
+for(let a = 0;a < 1.99999 * Math.PI;a += Math.PI / 64) {
     let x = width / 2 + height / 2 * Math.cos(a);
     let y = height / 2 + height / 2 * Math.sin(a);
     charges.push(world.add_charge(new PointCharge(false, new Vec3(x, y, 0), new Vec3(x, y, 0), -e)));
