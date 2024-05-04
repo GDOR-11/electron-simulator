@@ -5,7 +5,8 @@
     "private": true,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "wasm-pack build --target web && echo \"\" && webpack"
+        "build-rust": "wasm-pack build --target web --out-dir electron-simulator && rm ./electron-simulator/.gitignore",
+        "build": "npm run build-rust && echo \"\" && webpack"
     },
     "keywords": [],
     "author": "",

@@ -1,0 +1,14 @@
+{
+  "name": "electron-simulator",
+  "version": "0.1.0",
+  "files": [
+    "electron_simulator_bg.wasm",
+    "electron_simulator.js",
+    "electron_simulator.d.ts"
+  ],
+  "module": "electron_simulator.js",
+  "types": "electron_simulator.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
