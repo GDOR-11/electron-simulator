@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>electron simulator</title>
+        <style>
+            #canvas {
+                background-color: black;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+            body {
+                overflow: hidden;
+                margin: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+        <canvas id="canvas"></canvas>
+        <script type="module" src="./bundle.js"></script>
+    </body>
+</html>
