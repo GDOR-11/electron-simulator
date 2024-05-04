@@ -57,7 +57,7 @@ function render_charges() {
         let charge = world.get_charge(idx);
         ctx.fillStyle = charge.charge > 0 ? "red" : "yellow";
         ctx.beginPath();
-        ctx.arc(charge.pos.x, charge.pos.y, 10, 0, 2 * Math.PI);
+        ctx.arc(charge.pos.x, charge.pos.y, 1000 / (charge.pos.z + 1000), 0, 2 * Math.PI);
         ctx.fill();
     }
 }
