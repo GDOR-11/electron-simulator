@@ -13,7 +13,7 @@ const renderer = new THREE.WebGLRenderer({
     antialias: true,
     canvas
 });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(300, 300);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 
