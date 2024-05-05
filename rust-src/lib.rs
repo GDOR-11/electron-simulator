@@ -9,16 +9,11 @@ use constraint::Constraint;
 use wasm_bindgen::prelude::*;
 
 
-// TODO: generalized physical constraint
-// what I probably want to do is code the functions here in rust and JS side gets to choose which
-// one is used. This way its easy to create new ones without much trouble, and it's pretty
-// performant too
-
 #[wasm_bindgen]
 pub struct World {
     charges: Vec<PointCharge>,
     constraint: Constraint,
-    k: f64
+    pub k: f64
 }
 
 #[wasm_bindgen]
@@ -33,6 +28,12 @@ impl World {
     }
     pub unsafe fn get_charge(&self, index: usize) -> PointCharge {
         self.charges[index]
+    }
+    pub fn get_constraint(&self) -> Constraint {
+        self.constraint.clone()
+    }
+    pub fn charge_count(&self) -> usize {
+        self.charges.len()
     }
     pub fn get_electric_field(&self, point: Vec3) -> Vec3 {
         let mut electric_field = Vec3::new(0.0, 0.0, 0.0);

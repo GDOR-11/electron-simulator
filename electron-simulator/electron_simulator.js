@@ -345,6 +345,19 @@ export class World {
         wasm.__wbg_world_free(ptr);
     }
     /**
+    * @returns {number}
+    */
+    get k() {
+        const ret = wasm.__wbg_get_vec3_x(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+    * @param {number} arg0
+    */
+    set k(arg0) {
+        wasm.__wbg_set_vec3_x(this.__wbg_ptr, arg0);
+    }
+    /**
     * @param {number} k
     * @param {Constraint} constraint
     */
@@ -372,6 +385,20 @@ export class World {
     get_charge(index) {
         const ret = wasm.world_get_charge(this.__wbg_ptr, index);
         return PointCharge.__wrap(ret);
+    }
+    /**
+    * @returns {Constraint}
+    */
+    get_constraint() {
+        const ret = wasm.world_get_constraint(this.__wbg_ptr);
+        return Constraint.__wrap(ret);
+    }
+    /**
+    * @returns {number}
+    */
+    charge_count() {
+        const ret = wasm.world_charge_count(this.__wbg_ptr);
+        return ret >>> 0;
     }
     /**
     * @param {Vec3} point

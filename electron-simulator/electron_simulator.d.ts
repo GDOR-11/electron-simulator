@@ -112,6 +112,14 @@ export class World {
 */
   get_charge(index: number): PointCharge;
 /**
+* @returns {Constraint}
+*/
+  get_constraint(): Constraint;
+/**
+* @returns {number}
+*/
+  charge_count(): number;
+/**
 * @param {Vec3} point
 * @returns {Vec3}
 */
@@ -121,6 +129,9 @@ export class World {
 * @param {number} substeps
 */
   step(dt: number, substeps: number): void;
+/**
+*/
+  k: number;
 }
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -153,8 +164,12 @@ export interface InitOutput {
   readonly world_new: (a: number, b: number) => number;
   readonly world_add_charge: (a: number, b: number) => number;
   readonly world_get_charge: (a: number, b: number) => number;
+  readonly world_get_constraint: (a: number) => number;
+  readonly world_charge_count: (a: number) => number;
   readonly world_get_electric_field: (a: number, b: number) => number;
   readonly world_step: (a: number, b: number, c: number) => void;
+  readonly __wbg_set_world_k: (a: number, b: number) => void;
+  readonly __wbg_get_world_k: (a: number) => number;
   readonly __wbg_constraint_free: (a: number) => void;
   readonly __wbg_get_constraint_shape: (a: number) => number;
   readonly __wbg_set_constraint_shape: (a: number, b: number) => void;
