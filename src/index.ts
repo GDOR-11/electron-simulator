@@ -1,49 +1,47 @@
 import init, { World, Constraint, ConstraintShape, Vec3, PointCharge } from "electron-simulator"
 await init();
 
-import render_world from "./renderer";
+import { render_world, render_constraint } from "./renderer";
 
 import parse_query from "./parse-query";
-const iterations = Number(parse_query().iterations) || 1;
+const iterations = Number(parse_query().iterations) || 10;
 const fps = Number(parse_query().fps) || Infinity;
-
+const sphere_size = Number(parse_query().sphere_size) || 500;
+const initial_charges = Number(parse_query().initial_charges) || 64;
+const k = Number(parse_query().k) || 9e9;
 
 const constraint = new Constraint(
     ConstraintShape.Sphere,
     new Float64Array([
         // center
-        window.innerWidth / 2, window.innerHeight / 2, 0,
+        0, 0, 0,
         // radius
-        Math.min(window.innerWidth, window.innerHeight) / 2
+        sphere_size
     ])
 );
-const world = new World(9e9, constraint.clone());
+const world = new World(k, constraint.clone());
 const e = 0.01;
 
+render_constraint(constraint);
 
-window.addEventListener("mousedown", event => {
-    world.add_charge(
-        new PointCharge(
-            false,
-            new Vec3(event.x, event.y, 0.1),
-            new Vec3(event.x, event.y, 0.1),
-            -e
-        )
-    );
+window.addEventListener("keydown", event => {
+    if (event.key !== " ") return;
+    let pos = () => new Vec3(0, 0, 0);
+    world.add_charge(new PointCharge(false, pos(), pos(), -e));
 });
 
-for (let a = 0; a < 1.99999 * Math.PI; a += Math.PI / 64) {
-    let x = window.innerWidth / 2 + window.innerHeight / 2 * Math.cos(a);
-    let y = window.innerHeight / 2 + window.innerHeight / 2 * Math.sin(a);
 
-    world.add_charge(
-        new PointCharge(
-            false,
-            new Vec3(x, y, 0),
-            new Vec3(x, y, 0),
-            -e
-        )
-    );
+// fibonacci sphere algorithm
+for (let i = 0; i < initial_charges; i++) {
+    let y = 1 - 2 * i / (initial_charges - 1);
+    let r = Math.sqrt(1 - y * y);
+    let theta = i * Math.PI * (Math.sqrt(5) - 1);
+    let x = r * Math.cos(theta);
+    let z = r * Math.sin(theta);
+
+    // I had to make it into a function because for some stupid reason I can't use Vec3 twice even though it implements Clone and Copy
+    let pos = () => new Vec3(sphere_size * x, sphere_size * y, sphere_size * z);
+    world.add_charge(new PointCharge(false, pos(), pos(), -e));
 }
 
 
