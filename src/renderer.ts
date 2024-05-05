@@ -12,6 +12,7 @@ function resize() {
     canvas.height = window.innerHeight;
 }
 window.addEventListener("resize", resize);
+resize();
 
 function render_constraint(constraint: Constraint) {
     if (constraint.shape === ConstraintShape.Sphere) {
