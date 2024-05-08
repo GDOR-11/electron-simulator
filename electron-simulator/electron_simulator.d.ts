@@ -38,15 +38,16 @@ export class PointCharge {
 /**
 * @param {boolean} locked
 * @param {Vec3} pos
-* @param {Vec3} last_pos
+* @param {Vec3} velocity
 * @param {number} charge
+* @param {number} mass
 */
-  constructor(locked: boolean, pos: Vec3, last_pos: Vec3, charge: number);
+  constructor(locked: boolean, pos: Vec3, velocity: Vec3, charge: number, mass: number);
 /**
 * @param {number} dt
-* @param {Vec3} force
+* @param {Vec3} acceleration
 */
-  step(dt: number, force: Vec3): void;
+  step(dt: number, acceleration: Vec3): void;
 /**
 */
   charge: number;
@@ -56,6 +57,9 @@ export class PointCharge {
 /**
 */
   locked: boolean;
+/**
+*/
+  mass: number;
 /**
 */
   pos: Vec3;
@@ -158,7 +162,9 @@ export interface InitOutput {
   readonly __wbg_set_pointcharge_last_pos: (a: number, b: number) => void;
   readonly __wbg_get_pointcharge_charge: (a: number) => number;
   readonly __wbg_set_pointcharge_charge: (a: number, b: number) => void;
-  readonly pointcharge_new: (a: number, b: number, c: number, d: number) => number;
+  readonly __wbg_get_pointcharge_mass: (a: number) => number;
+  readonly __wbg_set_pointcharge_mass: (a: number, b: number) => void;
+  readonly pointcharge_new: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly pointcharge_step: (a: number, b: number, c: number) => void;
   readonly __wbg_world_free: (a: number) => void;
   readonly world_new: (a: number, b: number) => number;

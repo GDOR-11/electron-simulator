@@ -203,27 +203,41 @@ export class PointCharge {
         wasm.__wbg_set_pointcharge_charge(this.__wbg_ptr, arg0);
     }
     /**
+    * @returns {number}
+    */
+    get mass() {
+        const ret = wasm.__wbg_get_pointcharge_mass(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+    * @param {number} arg0
+    */
+    set mass(arg0) {
+        wasm.__wbg_set_pointcharge_mass(this.__wbg_ptr, arg0);
+    }
+    /**
     * @param {boolean} locked
     * @param {Vec3} pos
-    * @param {Vec3} last_pos
+    * @param {Vec3} velocity
     * @param {number} charge
+    * @param {number} mass
     */
-    constructor(locked, pos, last_pos, charge) {
+    constructor(locked, pos, velocity, charge, mass) {
         _assertClass(pos, Vec3);
         var ptr0 = pos.__destroy_into_raw();
-        _assertClass(last_pos, Vec3);
-        var ptr1 = last_pos.__destroy_into_raw();
-        const ret = wasm.pointcharge_new(locked, ptr0, ptr1, charge);
+        _assertClass(velocity, Vec3);
+        var ptr1 = velocity.__destroy_into_raw();
+        const ret = wasm.pointcharge_new(locked, ptr0, ptr1, charge, mass);
         this.__wbg_ptr = ret >>> 0;
         return this;
     }
     /**
     * @param {number} dt
-    * @param {Vec3} force
+    * @param {Vec3} acceleration
     */
-    step(dt, force) {
-        _assertClass(force, Vec3);
-        var ptr0 = force.__destroy_into_raw();
+    step(dt, acceleration) {
+        _assertClass(acceleration, Vec3);
+        var ptr0 = acceleration.__destroy_into_raw();
         wasm.pointcharge_step(this.__wbg_ptr, dt, ptr0);
     }
 }

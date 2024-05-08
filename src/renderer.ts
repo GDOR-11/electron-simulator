@@ -4,7 +4,7 @@ import parse_query from "./parse-query";
 const charge_radius = Number(parse_query().radius) || 10;
 const sphere_size = Number(parse_query().sphere_size) || 500;
 const FOV = Number(parse_query().FOV) || 60;
-const max_charges = Number(parse_query().max_charges) || 1024;
+const max_charges = Number(parse_query().max_charges) || 16384;
 
 import * as THREE from "three";
 
@@ -14,7 +14,6 @@ const renderer = new THREE.WebGLRenderer({
     canvas
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
-
 
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";

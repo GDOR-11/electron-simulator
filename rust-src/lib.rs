@@ -56,7 +56,8 @@ impl World {
                 }
             }
             for i in 0..self.charges.len() {
-                self.charges[i].step(subdt, forces[i]);
+                let mass = self.charges[i].mass;
+                self.charges[i].step(subdt, forces[i] / mass);
                 self.constraint.apply(&mut self.charges[i].pos);
             }
         }
